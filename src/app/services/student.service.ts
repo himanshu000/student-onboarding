@@ -25,4 +25,13 @@ export class StudentService {
     return this.http.get<Student[]>(this.baseUrl)
     .pipe(tap(data => this.students.next(data)));
   }
+
+  deleteStudent(id: number): Observable<Student[]> {
+    return new Observable<Student[]>((observer) => {
+      observer.next(this.students.getValue().filter((element) => {
+        return element.id !== id;
+      }));
+      observer.complete();
+    }).pipe(tap(data => this.students.next(data)));
+  }
 }

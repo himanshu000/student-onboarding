@@ -1,8 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
-import { StudentService } from '../services/student.service';
 import { Router } from '@angular/router';
+
+import {MatPaginator, MatTableDataSource, MatDialog, MatDialogRef} from '@angular/material';
+
+import { StudentService } from '../services/student.service';
 import { Student } from '../models/student';
+import { ConfirmationComponent } from '../shared/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,10 +25,11 @@ export class DashboardComponent implements OnInit {
     'action'
   ];
   dataSource;
+  dialogRef: MatDialogRef<ConfirmationComponent>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private studentService: StudentService, private router: Router) { }
+  constructor(private studentService: StudentService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.studentService.getStudents().subscribe((result: Student[]) => {
@@ -44,11 +48,20 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteStudent(id) {
-    const index = this.students.findIndex(element => (element.id === id));
-    if (index > -1) {
-      this.students.splice(index, 1);
-      this.dataSource = new MatTableDataSource<Student>(this.students);
-      this.dataSource.paginator = this.paginator;
-    }
+    this.dialogRef = this.dialog.open(ConfirmationComponent, {
+      disableClose: false
+    });
+
+    this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+    this.dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.studentService.deleteStudent(id).subscribe((data) => {
+          this.students = data;
+          this.dataSource = new MatTableDataSource<Student>(this.students);
+          this.dataSource.paginator = this.paginator;
+        });
+      }
+      this.dialogRef = null;
+    });
   }
 }
