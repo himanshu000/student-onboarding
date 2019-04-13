@@ -1,9 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 
 import {
   MatInputModule,
@@ -43,28 +39,14 @@ import {
   MatTreeModule
 } from '@angular/material';
 
-import { CdkTableModule } from '@angular/cdk/table';
-import { CdkTreeModule } from '@angular/cdk/tree';
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { LayoutModule } from '@angular/cdk/layout';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { NavModule } from './nav/nav.module';
+import { NavRoutingModule } from './nav-routing.module';
+import { NavComponent } from './nav.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent
-  ],
+  declarations: [NavComponent, DashboardComponent],
   imports: [
-    AppRoutingModule,
-    NavModule,
-    BrowserModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
+    CommonModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
@@ -100,12 +82,7 @@ import { NavModule } from './nav/nav.module';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-    CdkTableModule,
-    CdkTreeModule,
-    ScrollingModule,
-    LayoutModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    NavRoutingModule
+  ]
 })
-export class AppModule { }
+export class NavModule { }
