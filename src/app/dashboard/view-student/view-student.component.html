@@ -1,0 +1,63 @@
+<div class="student-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Student Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col full-width">
+          <mat-card-title>Name</mat-card-title>
+          <mat-card-subtitle class="row">{{student.name | uppercase}}</mat-card-subtitle>
+        </div>
+        <div class="col full-width">
+          <mat-card-title>Category</mat-card-title>
+          <mat-card-subtitle class="row">{{student.category | uppercase}}</mat-card-subtitle>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col full-width">
+          <mat-card-title>DOB</mat-card-title>
+          <div class="row">
+            <mat-card-subtitle>{{student.dateOfBirth | date}}</mat-card-subtitle>
+          </div>
+          <mat-card-title>Father's Name</mat-card-title>
+          <div class="row">
+            <mat-card-subtitle>{{student.fatherName | uppercase}}</mat-card-subtitle>
+          </div>
+          <mat-card-title>Mother's Name</mat-card-title>
+          <div class="row">
+            <mat-card-subtitle>{{student.motherName | uppercase}}</mat-card-subtitle>
+          </div>
+          <mat-card-title>Last Class Score</mat-card-title>
+          <div class="row">
+            <mat-card-subtitle>{{student.lastClassScore}}</mat-card-subtitle>
+          </div>
+        </div>
+        <div class="col full-width">
+          <mat-card-title>Documents Submitted</mat-card-title>
+          <div class="row">
+            <mat-card-subtitle>Domicile Certificate</mat-card-subtitle>
+          </div>
+          <div class="row">
+            <mat-card-subtitle>Birth Certificate</mat-card-subtitle>
+          </div>
+          <div class="row">
+            <mat-card-subtitle>Previous Mark Sheet</mat-card-subtitle>
+          </div>
+          <div class="row" *ngIf="student.documents.policeClearance">
+            <mat-card-subtitle>Police Clearance</mat-card-subtitle>
+          </div>
+          <div class="row" *ngIf="student.documents.passport">
+            <mat-card-subtitle>Passport</mat-card-subtitle>
+          </div>
+          <div class="row">
+            <mat-card-subtitle>Signed Declaration</mat-card-subtitle>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button  class="btn-pos" mat-raised-button color="primary" type="button" (click)="back()">Ok</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
