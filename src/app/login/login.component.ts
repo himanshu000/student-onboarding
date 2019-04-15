@@ -34,9 +34,16 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.loginUser(this.loginForm.controls.userName.value, this.loginForm.controls.password.value);
 
-    if (localStorage.getItem('currentUser')) {
+    if (this.authService.currentUser.getValue()) {
       this.router.navigate(['/dashboard']);
     }
+  }
+
+  reset() {
+    this.loginForm = this.fb.group({
+      userName: [null, Validators.required],
+      password: [null, Validators.required]
+    });
   }
 
 }

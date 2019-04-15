@@ -4,7 +4,7 @@
 <form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
   <mat-card class="login-card">
     <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
+      <mat-card-title>Login School Admin</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="row">
@@ -29,8 +29,9 @@
         </div>
       </div>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.status === 'INVALID'">Submit</button>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Submit</button>
+      <button mat-raised-button color="secondary" [disabled]="this.loginForm.value.userName === null && this.loginForm.value.password === null" (click)="reset()">Clear</button>
     </mat-card-actions>
   </mat-card>
 </form>

@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 
-import {MatPaginator, MatTableDataSource, MatDialog, MatDialogRef} from '@angular/material';
+import {MatPaginator, MatTableDataSource, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 
 import { StudentService } from '../services/student.service';
 import { Student } from '../models/student';
@@ -29,7 +29,10 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private studentService: StudentService, private router: Router, private dialog: MatDialog) { }
+  constructor(private studentService: StudentService,
+              private router: Router,
+              private dialog: MatDialog,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.studentService.getStudents().subscribe((result: Student[]) => {
@@ -56,6 +59,7 @@ export class DashboardComponent implements OnInit {
     this.dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.studentService.deleteStudent(id).subscribe((data) => {
+          this.snackBar.open('Student deleted successfully');
           this.students = data;
           this.dataSource = new MatTableDataSource<Student>(this.students);
           this.dataSource.paginator = this.paginator;

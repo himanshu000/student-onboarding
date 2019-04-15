@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+  public currentUser: BehaviorSubject<string> = new BehaviorSubject(null);
   constructor() { }
 
   loginUser(userName: string, password: string) {
     if (userName && password) {
-      localStorage.setItem('currentUser', JSON.stringify(userName));
+      this.currentUser.next(userName);
     }
   }
 
   logout() {
-    localStorage.removeItem('currentUser');
+    this.currentUser.next(null);
   }
 }
