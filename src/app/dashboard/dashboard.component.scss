@@ -6,11 +6,6 @@ table {
   padding: 15px !important;
 }
 
-.btn-pos {
-  top: 8px;
-  left: 20px;
-}
-
 .table-header {
   background-color: rgba(0,0,0,.03);
 }
@@ -25,4 +20,19 @@ table {
 
 .header-font {
   font-size: 110%;
+}
+
+.row {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  flex-grow: 1;
+  margin: 0;
+}
+
+.margin-bottom-0 {
+  margin-bottom: 0;
 }

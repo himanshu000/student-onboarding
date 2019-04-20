@@ -1,8 +1,33 @@
-<div class="mat-elevation-z8">
-  <mat-card-actions>
-    <button class="btn-pos" mat-raised-button color="primary" (click)="addStudent()">Onboard Student</button>
-  </mat-card-actions>
-  <table mat-table [dataSource]="dataSource">
+<div>
+
+  <mat-card>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-card-actions class="margin-bottom-0">
+            <button mat-raised-button color="primary" (click)="addStudent()">Onboard Student</button>
+          </mat-card-actions>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="Search Student" (keyup)="applyFilter($event.target.value)">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Cateogry</mat-label>
+            <mat-select [(value)]="category" (closed)="onCategorySelection()">
+              <mat-option *ngFor="let category of categories" [value]="category.value">
+                {{category.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
     <!-- S.No. Column -->
     <ng-container matColumnDef="sNo">
@@ -12,37 +37,37 @@
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th class="cell-pad header-font" mat-header-cell *matHeaderCellDef> Name </th>
+      <th class="cell-pad header-font" mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
       <td class="cell-pad" mat-cell *matCellDef="let element"> {{element.name | uppercase}} </td>
     </ng-container>
 
     <!-- Category Column -->
     <ng-container matColumnDef="category">
-      <th class="cell-pad header-font" mat-header-cell *matHeaderCellDef> Category </th>
+      <th class="cell-pad header-font" mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
       <td class="cell-pad" mat-cell *matCellDef="let element"> {{element.category | uppercase}} </td>
     </ng-container>
 
     <!-- Date of Birth Column -->
     <ng-container matColumnDef="dateOfBirth">
-      <th class="cell-pad header-font" mat-header-cell *matHeaderCellDef> Date of Birth </th>
+      <th class="cell-pad header-font" mat-header-cell *matHeaderCellDef mat-sort-header> Date of Birth </th>
       <td class="cell-pad" mat-cell *matCellDef="let element"> {{element.dateOfBirth | date}} </td>
     </ng-container>
 
     <!-- Father's Name Column -->
     <ng-container matColumnDef="fatherName">
-      <th class="cell-pad header-font" mat-header-cell *matHeaderCellDef> Father's Name </th>
+      <th class="cell-pad header-font" mat-header-cell *matHeaderCellDef mat-sort-header> Father's Name </th>
       <td class="cell-pad" mat-cell *matCellDef="let element"> {{element.fatherName | uppercase}} </td>
     </ng-container>
 
     <!-- Mother's Name Column -->
     <ng-container matColumnDef="motherName">
-      <th class="cell-pad header-font" mat-header-cell *matHeaderCellDef> Mother's Name </th>
+      <th class="cell-pad header-font" mat-header-cell *matHeaderCellDef mat-sort-header> Mother's Name </th>
       <td class="cell-pad" mat-cell *matCellDef="let element"> {{element.motherName | uppercase}} </td>
     </ng-container>
 
     <!-- Last Class Score Column -->
     <ng-container matColumnDef="lastClassScore">
-      <th class="cell-pad header-font" mat-header-cell *matHeaderCellDef> Last Class Score </th>
+      <th class="cell-pad header-font" mat-header-cell *matHeaderCellDef mat-sort-header> Last Class Score </th>
       <td class="cell-pad" mat-cell *matCellDef="let element"> {{element.lastClassScore / 100 | percent:'1.0-3'}} </td>
     </ng-container>
 

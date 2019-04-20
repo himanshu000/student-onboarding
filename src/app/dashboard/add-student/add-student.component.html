@@ -16,16 +16,16 @@
             </div>
             <div class="col">
               <mat-form-field class="full-width">
-                  <mat-label>Cateogry</mat-label>
-                  <mat-select formControlName="category">
-                    <mat-option *ngFor="let category of categories" [value]="category.value">
-                      {{category.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="studentForm.controls['category'].hasError('required')">
-                      Category is <strong>required</strong>
-                  </mat-error>
-                </mat-form-field>
+                <mat-label>Cateogry</mat-label>
+                <mat-select formControlName="category">
+                  <mat-option *ngFor="let category of categories" [value]="category.value">
+                    {{category.viewValue}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="studentForm.controls['category'].hasError('required')">
+                    Category is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
             </div>
           </div>
           <div class="row">
