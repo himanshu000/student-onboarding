@@ -11,19 +11,35 @@ import { Student } from '../models/student';
 export class StudentService {
   baseUrl = '/assets/students-list.json';
 
-  documentsList: BehaviorSubject<StudentCategoryDocuments[]> = new BehaviorSubject([]);
-  students: BehaviorSubject<Student[]> = new BehaviorSubject([]);
+  documentsList: BehaviorSubject<StudentCategoryDocuments[]>;
+  students: BehaviorSubject<Student[]>;
 
   constructor(private http: HttpClient) { }
 
   getDocumentsList(): Observable<StudentCategoryDocuments[]> {
-    return this.http.get<StudentCategoryDocuments[]>('/assets/student-category-documents-list.json')
-    .pipe(tap(data => this.documentsList.next(data)));
+    if (this.documentsList) {
+      return new Observable<StudentCategoryDocuments[]>((observer) => {
+        observer.next(this.documentsList.getValue());
+        observer.complete();
+      }).pipe(tap(data => this.documentsList.next(data)));
+    } else {
+      this.documentsList =  new BehaviorSubject([]);
+      return this.http.get<StudentCategoryDocuments[]>('/assets/student-category-documents-list.json')
+      .pipe(tap(data => this.documentsList.next(data)));
+    }
   }
 
   getStudents(): Observable<Student[]> {
-    return this.http.get<Student[]>(this.baseUrl)
-    .pipe(tap(data => this.students.next(data)));
+    if (this.students) {
+      return new Observable<Student[]>((observer) => {
+        observer.next(this.students.getValue());
+        observer.complete();
+      }).pipe(tap(data => this.students.next(data)));
+    } else {
+      this.students = new BehaviorSubject([]);
+      return this.http.get<Student[]>(this.baseUrl)
+      .pipe(tap(data => this.students.next(data)));
+    }
   }
 
   deleteStudent(id: number): Observable<Student[]> {
@@ -33,5 +49,16 @@ export class StudentService {
       }));
       observer.complete();
     }).pipe(tap(data => this.students.next(data)));
+  }
+
+  editStudentData(student: Student): Observable<boolean> {
+    return new Observable<boolean>((observer) => {
+      const currentData = this.students.getValue();
+      const foundIndex = currentData.findIndex(st => st.id === student.id);
+      currentData[foundIndex] = student;
+      this.students.next(currentData);
+      observer.next(true);
+      observer.complete();
+    }).pipe(tap(data => data));
   }
 }

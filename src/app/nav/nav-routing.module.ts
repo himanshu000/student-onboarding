@@ -5,6 +5,7 @@ import { AuthGuard } from '../services/auth.guard';
 import { NavComponent } from './nav.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { ViewStudentComponent } from '../dashboard/view-student/view-student.component';
+import { EditStudentComponent } from '../dashboard/edit-student/edit-student.component';
 
 const routes: Routes = [
   {
@@ -20,7 +21,8 @@ const routes: Routes = [
     component: NavComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'view/:id', component: ViewStudentComponent }
+      { path: 'view/:id', component: ViewStudentComponent },
+      { path: 'edit/:id', component: EditStudentComponent }
     ]
   },
   {path: '**', redirectTo: 'dashboard'}

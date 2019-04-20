@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import {
   MatInputModule,
@@ -43,12 +44,14 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { LayoutModule } from '@angular/cdk/layout';
+
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 @NgModule({
   declarations: [ConfirmationComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
@@ -91,6 +94,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
   ],
   exports: [
     CommonModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,

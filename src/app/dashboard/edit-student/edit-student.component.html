@@ -1,0 +1,199 @@
+<div class="student-container">
+  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Edit Student Details</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Name" formControlName="name">
+              <mat-error *ngIf="studentForm.controls['name'].hasError('required')">
+                Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+                <mat-label>Cateogry</mat-label>
+                <mat-select formControlName="category" [(value)]="student.category">
+                  <mat-option *ngFor="let category of categories" [value]="category.value">
+                    {{category.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col full-width">
+            <mat-form-field class="full-width">
+              <input matInput [matDatepicker]="picker" placeholder="DOB" formControlName="dateOfBirth">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Father's Name" formControlName="fatherName">
+              <mat-error *ngIf="studentForm.controls['fatherName'].hasError('required')">
+                Father's Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Mother's Name" formControlName="motherName">
+              <mat-error *ngIf="studentForm.controls['motherName'].hasError('required')">
+                Mother's Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <input type="number" matInput placeholder="Last Class Score" formControlName="lastClassScore">
+              <mat-icon matSuffix>%</mat-icon>
+              <mat-error *ngIf="studentForm.controls['lastClassScore'].hasError('required')">
+                Last Class Score is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="studentForm.controls['lastClassScore'].hasError('minMaxValue')">
+                Last Class Score is <strong>invalid</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col full-width">
+            <mat-card-title>Documents</mat-card-title>
+            <div class="row">
+              <mat-checkbox formControlName="domicileCertificate">Domicile Certificate</mat-checkbox>
+            </div>
+            <div class="row">
+              <mat-checkbox formControlName="birthCertificate">Birth Certificate</mat-checkbox>
+            </div>
+            <div class="row">
+              <mat-checkbox formControlName="previousMarkSheet">Previous Mark Sheet</mat-checkbox>
+            </div>
+            <div class="row">
+              <mat-checkbox formControlName="policeClearance">Police Clearance</mat-checkbox>
+            </div>
+            <div class="row">
+              <mat-checkbox formControlName="passport">Passport</mat-checkbox>
+            </div>
+            <div class="row">
+              <mat-checkbox formControlName="signedDeclaration">Signed Declaration</mat-checkbox>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <!-- <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Name" formControlName="name">
+              <mat-error *ngIf="studentForm.controls['name'].hasError('required')">
+                Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Username" formControlName="username">
+              <mat-error *ngIf="studentForm.controls['username'].hasError('required')">
+                User name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Email" formControlName="email">
+              <mat-error *ngIf="studentForm.controls['email'].hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Phone" formControlName="phone">
+              <mat-error *ngIf="studentForm.controls['phone'].hasError('required')">
+                Phone is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Website" formControlName="website">
+              <mat-error *ngIf="studentForm.controls['website'].hasError('required')">
+                Website is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col address">
+            <mat-card-subtitle>Address</mat-card-subtitle>
+            <div class="row">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Street" formControlName="street">
+                <mat-error *ngIf="studentForm.controls['street'].hasError('required')">
+                  Street is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Suite" formControlName="suite">
+                <mat-error *ngIf="studentForm.controls['suite'].hasError('required')">
+                  Suite is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="City" formControlName="city">
+                <mat-error *ngIf="studentForm.controls['city'].hasError('required')">
+                  City is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Zipcode" formControlName="zipcode">
+                <mat-error *ngIf="studentForm.controls['zipcode'].hasError('required')">
+                  Zipcode is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col company">
+            <mat-card-subtitle>Company</mat-card-subtitle>
+            <div class="row">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Name" formControlName="companyname">
+                <mat-error *ngIf="studentForm.controls['companyname'].hasError('required')">
+                  Company name is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="CatchPhrase" formControlName="catchphrase">
+                <mat-error *ngIf="studentForm.controls['catchphrase'].hasError('required')">
+                  Catch phrase is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="BS" formControlName="bs">
+                <mat-error *ngIf="studentForm.controls['bs'].hasError('required')">
+                  BS is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </mat-card-content> -->
+      <mat-card-actions>
+        <button class="btn-pos" mat-raised-button color="primary" type="button" (click)="back()">Back</button>
+        <button class="btn-pos" mat-raised-button color="primary" type="submit"[disabled]="studentForm.status === 'INVALID'">Save</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
