@@ -34,7 +34,7 @@ export class StudentService {
       return new Observable<Student[]>((observer) => {
         observer.next(this.students.getValue());
         observer.complete();
-      }).pipe(tap(data => this.students.next(data)));
+      });
     } else {
       this.students = new BehaviorSubject([]);
       return this.http.get<Student[]>(this.baseUrl)
@@ -51,14 +51,27 @@ export class StudentService {
     }).pipe(tap(data => this.students.next(data)));
   }
 
-  editStudentData(student: Student): Observable<boolean> {
-    return new Observable<boolean>((observer) => {
+  editStudentData(student: Student): Observable<void> {
+    return new Observable<void>((observer) => {
       const currentData = this.students.getValue();
       const foundIndex = currentData.findIndex(st => st.id === student.id);
       currentData[foundIndex] = student;
       this.students.next(currentData);
-      observer.next(true);
+      observer.next();
       observer.complete();
-    }).pipe(tap(data => data));
+    });
+  }
+
+  addStudentData(student: Student): Observable<void> {
+    return new Observable<void>((observer) => {
+      const currentData = this.students.getValue();
+      const nextId = Math.max.apply(Math, currentData.map((o) => {
+        return o.id;
+      })) + 1;
+      student.id = nextId;
+      this.students.next([...currentData, student]);
+      observer.next();
+      observer.complete();
+    });
   }
 }

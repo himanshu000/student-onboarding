@@ -50,6 +50,10 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/student/edit', id]);
   }
 
+  addStudent() {
+    this.router.navigate(['/student/add']);
+  }
+
   deleteStudent(id) {
     this.dialogRef = this.dialog.open(ConfirmationComponent, {
       disableClose: false

@@ -1,22 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
-
-import { Student } from 'src/app/models/student';
-import { StudentService } from 'src/app/services/student.service';
-import { minMaxValueValidator } from 'src/app/shared/directives/min-max-value.directive';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { StudentCategoryDocuments } from 'src/app/models/student-category-documents';
+import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { StudentService } from 'src/app/services/student.service';
+import { Student } from 'src/app/models/student';
 import { ConfirmationComponent } from 'src/app/shared/confirmation/confirmation.component';
+import { minMaxValueValidator } from 'src/app/shared/directives/min-max-value.directive';
 
 @Component({
-  selector: 'app-edit-student',
-  templateUrl: './edit-student.component.html',
-  styleUrls: ['./edit-student.component.scss']
+  selector: 'app-add-student',
+  templateUrl: './add-student.component.html',
+  styleUrls: ['./add-student.component.scss']
 })
-export class EditStudentComponent implements OnInit {
+export class AddStudentComponent implements OnInit {
   student: Student;
-  studentForm: FormGroup;
+  studentForm = this.fb.group({
+    name: [null, Validators.required],
+    category: [null, Validators.required],
+    dateOfBirth: [null, Validators.required],
+    fatherName: [null, Validators.required],
+    motherName: [null, Validators.required],
+    lastClassScore: [null, [Validators.required, minMaxValueValidator(60, 100)]],
+    domicileCertificate: [null],
+    birthCertificate: [null],
+    previousMarkSheet: [null],
+    policeClearance: [null],
+    passport: [null],
+    signedDeclaration: [null]
+  });
   dialogRef: MatDialogRef<ConfirmationComponent>;
 
   categories = [
@@ -28,51 +41,13 @@ export class EditStudentComponent implements OnInit {
     private fb: FormBuilder,
     private studentService: StudentService,
     private router: Router,
-    private route: ActivatedRoute,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
     ) {}
 
   ngOnInit() {
-    this.buildStudentForm();
-
-    this.route.params.subscribe(params => {
-      this.student = this.studentService.students.getValue().find(student => student.id === +params.id);
-
-      this.studentService.getDocumentsList().subscribe(doc => {
-
-        this.setStudentCategoryValidators(doc);
-
-        this.studentForm.controls.name.setValue(this.student.name);
-        this.studentForm.controls.category.setValue(this.student.category);
-        this.studentForm.controls.dateOfBirth.setValue(new Date(this.student.dateOfBirth));
-        this.studentForm.controls.fatherName.setValue(this.student.fatherName);
-        this.studentForm.controls.motherName.setValue(this.student.motherName);
-        this.studentForm.controls.lastClassScore.setValue(this.student.lastClassScore);
-        this.studentForm.controls.birthCertificate.setValue(this.student.documents.birthCertificate);
-        this.studentForm.controls.domicileCertificate.setValue(this.student.documents.domicileCertificate);
-        this.studentForm.controls.passport.setValue(this.student.documents.passport);
-        this.studentForm.controls.policeClearance.setValue(this.student.documents.policeClearance);
-        this.studentForm.controls.previousMarkSheet.setValue(this.student.documents.previousMarkSheet);
-        this.studentForm.controls.signedDeclaration.setValue(this.student.documents.signedDeclaration);
-      });
-   });
-  }
-
-  private buildStudentForm() {
-    this.studentForm = this.fb.group({
-      name: [null, Validators.required],
-      category: [null, Validators.required],
-      dateOfBirth: [null, Validators.required],
-      fatherName: [null, Validators.required],
-      motherName: [null, Validators.required],
-      lastClassScore: [null, [Validators.required, minMaxValueValidator(60, 100)]],
-      domicileCertificate: [null],
-      birthCertificate: [null],
-      previousMarkSheet: [null],
-      policeClearance: [null],
-      passport: [null],
-      signedDeclaration: [null]
+    this.studentService.getDocumentsList().subscribe(doc => {
+      this.setStudentCategoryValidators(doc);
     });
   }
 
@@ -168,23 +143,27 @@ export class EditStudentComponent implements OnInit {
       disableClose: false
     });
 
-    this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to update?';
+    this.dialogRef.componentInstance.confirmMessage = 'Are you sure you want to add?';
     this.dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.student.name = this.studentForm.value.name;
-        this.student.category = this.studentForm.value.category;
-        this.student.dateOfBirth = this.studentForm.value.dateOfBirth;
-        this.student.fatherName = this.studentForm.value.fatherName;
-        this.student.motherName = this.studentForm.value.motherName;
-        this.student.lastClassScore = this.studentForm.value.lastClassScore;
-        this.student.documents.birthCertificate = this.studentForm.value.birthCertificate;
-        this.student.documents.domicileCertificate = this.studentForm.value.domicileCertificate;
-        this.student.documents.passport = this.studentForm.value.passport;
-        this.student.documents.policeClearance = this.studentForm.value.policeClearance;
-        this.student.documents.previousMarkSheet = this.studentForm.value.previousMarkSheet;
-        this.student.documents.signedDeclaration = this.studentForm.value.signedDeclaration;
-        this.studentService.editStudentData(this.student).subscribe(data => {
-          this.snackBar.open('Student updated successfully');
+        this.student = {
+          name: this.studentForm.value.name,
+          category: this.studentForm.value.category,
+          dateOfBirth: this.studentForm.value.dateOfBirth,
+          fatherName: this.studentForm.value.fatherName,
+          motherName: this.studentForm.value.motherName,
+          lastClassScore: this.studentForm.value.lastClassScore,
+          documents: {
+            birthCertificate: this.studentForm.value.birthCertificate,
+            domicileCertificate: this.studentForm.value.domicileCertificate,
+            passport: this.studentForm.value.passport,
+            policeClearance: this.studentForm.value.policeClearance,
+            previousMarkSheet: this.studentForm.value.previousMarkSheet,
+            signedDeclaration: this.studentForm.value.signedDeclaration
+          }
+        };
+        this.studentService.addStudentData(this.student).subscribe(data => {
+          this.snackBar.open('Student added successfully');
           this.router.navigate(['/dashboard']);
         });
       }

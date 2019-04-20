@@ -1,7 +1,7 @@
 <div class="mat-elevation-z8">
-  <!-- <mat-card-actions>
-    <button class="btn-pos" mat-raised-button color="primary" type="button">Onboard Student</button>
-  </mat-card-actions> -->
+  <mat-card-actions>
+    <button class="btn-pos" mat-raised-button color="primary" (click)="addStudent()">Onboard Student</button>
+  </mat-card-actions>
   <table mat-table [dataSource]="dataSource">
 
     <!-- S.No. Column -->
@@ -43,7 +43,7 @@
     <!-- Last Class Score Column -->
     <ng-container matColumnDef="lastClassScore">
       <th class="cell-pad header-font" mat-header-cell *matHeaderCellDef> Last Class Score </th>
-      <td class="cell-pad" mat-cell *matCellDef="let element"> {{element.lastClassScore}} </td>
+      <td class="cell-pad" mat-cell *matCellDef="let element"> {{element.lastClassScore / 100 | percent:'1.0-3'}} </td>
     </ng-container>
 
     <!-- Action Column -->
