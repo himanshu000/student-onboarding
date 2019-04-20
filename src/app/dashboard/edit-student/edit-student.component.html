@@ -22,6 +22,9 @@
                     {{category.viewValue}}
                   </mat-option>
                 </mat-select>
+                <mat-error *ngIf="studentForm.controls['category'].hasError('required')">
+                  Category is <strong>required</strong>
+                </mat-error>
               </mat-form-field>
           </div>
         </div>
@@ -31,6 +34,9 @@
               <input matInput [matDatepicker]="picker" placeholder="DOB" formControlName="dateOfBirth">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="studentForm.controls['dateOfBirth'].hasError('required')">
+                DOB is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width">
               <input matInput placeholder="Father's Name" formControlName="fatherName">
