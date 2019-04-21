@@ -9,7 +9,7 @@ import { Student } from '../models/student';
   providedIn: 'root'
 })
 export class StudentService {
-  baseUrl = '/assets/students-list.json';
+  baseUrl = './assets/students-list.json';
 
   documentsList: BehaviorSubject<StudentCategoryDocuments[]>;
   students: BehaviorSubject<Student[]>;
@@ -24,7 +24,7 @@ export class StudentService {
       }).pipe(tap(data => this.documentsList.next(data)));
     } else {
       this.documentsList =  new BehaviorSubject([]);
-      return this.http.get<StudentCategoryDocuments[]>('/assets/student-category-documents-list.json')
+      return this.http.get<StudentCategoryDocuments[]>('./assets/student-category-documents-list.json')
       .pipe(tap(data => this.documentsList.next(data)));
     }
   }
