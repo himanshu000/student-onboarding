@@ -1,0 +1,38 @@
+table {
+  width: 100%;
+}
+
+.cell-pad {
+  padding: 15px !important;
+}
+
+.table-header {
+  background-color: rgba(0,0,0,.03);
+}
+
+.international {
+  background-color: beige;
+}
+
+.domestic {
+  background-color: blanchedalmond;
+}
+
+.header-font {
+  font-size: 110%;
+}
+
+.row {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  flex-grow: 1;
+  margin: 0;
+}
+
+.margin-bottom-0 {
+  margin-bottom: 0;
+}

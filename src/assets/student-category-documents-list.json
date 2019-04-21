@@ -1,0 +1,22 @@
+[
+  {
+    "category": "international",
+    "documents": [
+      "passport",
+      "policeClearance",
+      "domicileCertificate",
+      "birthCertificate",
+      "previousMarkSheet",
+      "signedDeclaration"
+    ]
+  },
+  {
+    "category": "domestic",
+    "documents": [
+      "domicileCertificate",
+      "birthCertificate",
+      "previousMarkSheet",
+      "signedDeclaration"
+    ]
+  }
+]

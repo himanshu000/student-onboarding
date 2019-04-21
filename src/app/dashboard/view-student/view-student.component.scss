@@ -1,0 +1,27 @@
+.student-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.student-container > * {
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.row {
+  margin-left: 16px;
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.btn-pos {
+    left: 47%;
+}

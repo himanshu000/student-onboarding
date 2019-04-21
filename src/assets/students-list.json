@@ -1,0 +1,70 @@
+[
+  {
+    "id": 1,
+    "name": "Rishabh Jain",
+    "category": "international",
+    "documents": {
+      "domicileCertificate": true,
+      "birthCertificate": true,
+      "previousMarkSheet": true,
+      "policeClearance": true,
+      "passport": true,
+      "signedDeclaration": true
+    },
+    "dateOfBirth": "11/01/1990",
+    "fatherName": "Shubhash Jain",
+    "motherName": "Kirti Jain",
+    "lastClassScore": 90
+  },
+  {
+    "id": 2,
+    "name": "Kunal",
+    "category": "domestic",
+    "documents": {
+      "domicileCertificate": true,
+      "birthCertificate": true,
+      "previousMarkSheet": true,
+      "policeClearance": false,
+      "passport": true,
+      "signedDeclaration": true
+    },
+    "dateOfBirth": "11/03/1991",
+    "fatherName": "Sumit",
+    "motherName": "Kirti",
+    "lastClassScore": 91.1
+  },
+  {
+    "id": 3,
+    "name": "Tarun Kumar",
+    "category": "domestic",
+    "documents": {
+      "domicileCertificate": true,
+      "birthCertificate": true,
+      "previousMarkSheet": true,
+      "policeClearance": true,
+      "passport": false,
+      "signedDeclaration": true
+    },
+    "dateOfBirth": "10/01/1994",
+    "fatherName": "Varun Kumar",
+    "motherName": "Smriti",
+    "lastClassScore": 89
+  },
+  {
+    "id": 4,
+    "name": "Samuel",
+    "category": "domestic",
+    "documents": {
+      "domicileCertificate": true,
+      "birthCertificate": true,
+      "previousMarkSheet": true,
+      "policeClearance": true,
+      "passport": true,
+      "signedDeclaration": true
+    },
+    "dateOfBirth": "11/11/1993",
+    "fatherName": "John",
+    "motherName": "Veronica",
+    "lastClassScore": 88
+  }
+]

@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+  <p>{{confirmMessage}}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close(true)">Yes</button>
+  <button mat-button (click)="dialogRef.close(false)" cdkFocusInitial>No</button>
+</div>
