@@ -16,20 +16,7 @@ import { minMaxValueValidator } from 'src/app/shared/directives/min-max-value.di
 })
 export class AddStudentComponent implements OnInit {
   student: Student;
-  studentForm = this.fb.group({
-    name: [null, Validators.required],
-    category: [null, Validators.required],
-    dateOfBirth: [null, Validators.required],
-    fatherName: [null, Validators.required],
-    motherName: [null, Validators.required],
-    lastClassScore: [null, [Validators.required, minMaxValueValidator(60, 100)]],
-    domicileCertificate: [null],
-    birthCertificate: [null],
-    previousMarkSheet: [null],
-    policeClearance: [null],
-    passport: [null],
-    signedDeclaration: [null]
-  });
+  studentForm: FormGroup;
   dialogRef: MatDialogRef<ConfirmationComponent>;
 
   categories = [
@@ -46,8 +33,26 @@ export class AddStudentComponent implements OnInit {
     ) {}
 
   ngOnInit() {
+    this.buildStudentForm();
     this.studentService.getDocumentsList().subscribe(doc => {
       this.setStudentCategoryValidators(doc);
+    });
+  }
+
+  private buildStudentForm() {
+    this.studentForm = this.fb.group({
+      name: [null, Validators.required],
+      category: [null, Validators.required],
+      dateOfBirth: [null, Validators.required],
+      fatherName: [null, Validators.required],
+      motherName: [null, Validators.required],
+      lastClassScore: [null, [Validators.required, minMaxValueValidator(60, 100)]],
+      domicileCertificate: [null],
+      birthCertificate: [null],
+      previousMarkSheet: [null],
+      policeClearance: [null],
+      passport: [null],
+      signedDeclaration: [null]
     });
   }
 

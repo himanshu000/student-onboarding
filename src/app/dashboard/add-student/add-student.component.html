@@ -57,7 +57,7 @@
                   Last Class Score is <strong>required</strong>
                 </mat-error>
                 <mat-error *ngIf="studentForm.controls['lastClassScore'].hasError('minMaxValue')">
-                  Last Class Score is <strong>invalid</strong>
+                  Last Class Score should be between <strong>60 and 100</strong>
                 </mat-error>
               </mat-form-field>
             </div>
